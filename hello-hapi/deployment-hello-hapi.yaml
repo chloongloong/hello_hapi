@@ -1,0 +1,26 @@
+apiVersion: 1.0
+kind: Deployment
+metadata: 
+  name: hello-hapi
+spec:
+  containers:
+    - name: hello-hapi
+      image: hello_hapi
+      ports:
+      - name: hello-hapi
+        containerPort: 3000
+        protocol: TCP
+---
+apiVersion: 1.0
+kind: Service
+metadata:
+  name: hello-hapi
+spec:
+  selector:
+    name: hello-hapi
+  type: NodePort
+  ports:
+  - protocol: TCP
+    nodePort: 30015
+    port: 3000
+    targetPort: 3000
