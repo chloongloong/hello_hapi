@@ -19,7 +19,7 @@ metadata:
   namespace: hello-hapi  
 spec:
   selector:
-    name: hello-hapi
+    app: hello-hapi
   type: NodePort
   ports:
   - protocol: TCP
