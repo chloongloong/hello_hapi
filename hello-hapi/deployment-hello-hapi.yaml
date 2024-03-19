@@ -3,6 +3,8 @@ kind: Deployment
 metadata: 
   name: hello-hapi
   namespace: hello-hapi  
+  labels:
+    app: hello-hapi
 spec:
   containers:
     - name: hello-hapi
