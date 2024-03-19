@@ -6,13 +6,22 @@ metadata:
   labels:
     app: hello-hapi
 spec:
-  containers:
-    - name: hello-hapi
-      image: hello_hapi
-      ports:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-hapi
+  template:
+    metadata:
+      labels:
+        app: hello-hapi
+    spec:      
+      containers:
       - name: hello-hapi
-        containerPort: 3000
-        protocol: TCP
+        image: hello_hapi
+        ports:
+        - name: hello-hapi
+          containerPort: 3000
+          protocol: TCP
 ---
 apiVersion: v1
 kind: Service
