@@ -3,7 +3,7 @@
 const Hapi   = require('@hapi/hapi');
 
 const Server = new Hapi.Server({
-    host: 'localhost',
+//    host: 'localhost',  // 20240320 chloong -- hashed out for open up access from other network interface 0.0.0.0 instead of localhost only
     port: 3000
 });
 const Hello  = require('./lib/hello');
