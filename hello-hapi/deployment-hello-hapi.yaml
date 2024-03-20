@@ -17,7 +17,7 @@ spec:
     spec:      
       containers:
       - name: hello-hapi
-        image: chloong/hello-hapi:7
+        image: chloong/hello-hapi:10
         ports:
         - name: hello-hapi
           containerPort: 3000
