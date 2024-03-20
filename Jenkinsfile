@@ -1,42 +1,74 @@
-pipeline { 
-    environment { 
-        registry = "chloong/hello-hapi" 
-        registryCredential = 'dockerhub' 
-        dockerImage = '' 
-    }
+#!/usr/bin/env groovy
 
-    agent any 
+pipeline {
 
-    stages { 
-        stage('Cloning our Git') { 
-            steps { 
-                git 'https://github.com/chloongloong/hello_hapi.git' 
-            }
-        } 
+	agent none
+	stages {
+		stage {
+		    agent {
+			docker {
+			    image 'node'
+			    args '-u root'
+			}
+		    }
 
-        stage('Building our image') { 
-            steps { 
-                script { 
-                    dockerImage = docker.build registry + ":$BUILD_NUMBER" 
-                }
-            } 
-        }
+		    stages {
+			stage('Build') {
+			    steps {
+				echo 'Building...'
+				sh 'npm install'
+			    }
+			}
+			stage('Test') {
+			    steps {
+				echo 'Testing...'
+				sh 'npm test'
+			    }
+			}
+		    }
+		}
 
-        stage('Deploy our image') { 
-            steps {
-		script { 
-                    docker.withRegistry( '', registryCredential ) { 
-                        dockerImage.push() 
-			dockerImage.push('latest')
-                    }
-                } 
-            }
-        } 
+		stage {
+		    environment { 
+			registry = "chloong/hello-hapi" 
+			registryCredential = 'dockerhub' 
+			dockerImage = '' 
+		    }
 
-        stage('Cleaning up') { 
-            steps { 
-                sh "docker rmi $registry:$BUILD_NUMBER" 
-            }
-        } 
-    }
+		    agent any 
+
+		    stages { 
+			stage('Cloning our Git') { 
+			    steps { 
+				git 'https://github.com/chloongloong/hello_hapi.git' 
+			    }
+			} 
+
+			stage('Building our image') { 
+			    steps { 
+				script { 
+				    dockerImage = docker.build registry + ":$BUILD_NUMBER" 
+				}
+			    } 
+			}
+
+			stage('Deploy our image') { 
+			    steps { 
+    		                script { 
+				    docker.withRegistry( '', registryCredential ) { 
+					dockerImage.push() 
+					dockerImage.push('latest')
+				    }
+				} 
+			    }
+			} 
+
+			stage('Cleaning up') { 
+			    steps { 
+				sh "docker rmi $registry:$BUILD_NUMBER" 
+			    }
+			} 
+		    }
+		}
+	}
 }
