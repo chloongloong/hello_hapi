@@ -99,8 +99,10 @@ pipeline {
 						    git config --global user.email "loongch@yahoo.com.sg"
 						    git add hello-hapi/deployment-hello-hapi.yaml
 						    git commit -m "Updated deployment Manifest to image ver ${IMAGE_TAG}"
-						    git push https://github.com/chloongloong/hello_hapi master
 						   """
+					       withCredentials([gitUsernamePassword(credentialsId: '24604917-d828-4d38-9257-da3e9f684eb7	', gitToolName: 'Default')]) {
+						   sh "git push https://github.com/chloongloong/hello_hapi master"
+					       }	
 					}	
 				}			
 			}
