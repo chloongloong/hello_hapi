@@ -99,7 +99,7 @@ pipeline {
 						    git config --global user.email "loongch@yahoo.com.sg"
 						    git add hello-hapi/deployment-hello-hapi.yaml
 						    git commit -m "Updated deployment Manifest to image ver ${IMAGE_TAG}"
-						    git push origin master
+						    git push https://github.com/chloongloong/hello_hapi master
 						   """
 					}	
 				}			
