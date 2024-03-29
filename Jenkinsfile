@@ -97,7 +97,7 @@ pipeline {
 						    grep hello-hapi:.* hello-hapi/deployment-hello-hapi.yaml
 						    git add deployment-hello-hapi.yaml
 						    git commit -m "Updated deployment Manifest to image ver ${IMAGE_TAG}"
-						    git push origin main
+						    git push origin master
 						   """
 					}	
 				}			
