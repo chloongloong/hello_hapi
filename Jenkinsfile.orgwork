@@ -2,12 +2,7 @@
 
 pipeline {
 
-	environment {
-		IMAGE_VER = 'v0.1'
-	}
-
 	agent none
-
 	stages {
 		stage('BUILD and TEST stages - BT stages') {
 		    agent {
@@ -73,25 +68,6 @@ pipeline {
 				sh "docker rmi $registry:$BUILD_NUMBER" 
 			    }
 			} 
-		    }
-		}
-
-		stage('Update the version in manifest & Trigger CD - UT stages') {
-		    environment {
-			IMAGE_TAG = "$BUILD_NUMBER"
-		    }
-		    agent any
-		    
-		    stages {
-			stage('UT - Update Manifest with new version number for the newly built image') {
-	
-				steps {
-					script {
-						sh "echo $IMAGE_TAG"
-						sh "echo $IMAGE_VER"
-					}	
-				}			
-			}
 		    }
 		}
 	}
