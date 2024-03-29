@@ -89,6 +89,8 @@ pipeline {
 					script {
 						sh "echo $IMAGE_TAG"
 						sh "echo $IMAGE_VER"
+						sh "pwd"
+						sh "ls -lrt"
 					}	
 				}			
 			}
