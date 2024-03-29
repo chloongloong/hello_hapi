@@ -95,6 +95,8 @@ pipeline {
 						    cat hello-hapi/deployment-hello-hapi.yaml
 						    sed -i 's/hello-hapi:.*/hello-hapi:'"${IMAGE_TAG}"'/g' hello-hapi/deployment-hello-hapi.yaml
 						    grep hello-hapi:.* hello-hapi/deployment-hello-hapi.yaml
+						    git config --global user.name “chloongloong”
+						    git config --global user.email "loongch@yahoo.com.sg"
 						    git add hello-hapi/deployment-hello-hapi.yaml
 						    git commit -m "Updated deployment Manifest to image ver ${IMAGE_TAG}"
 						    git push origin master
