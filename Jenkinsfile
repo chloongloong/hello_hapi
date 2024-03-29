@@ -83,6 +83,12 @@ pipeline {
 		    agent any
 		    
 		    stages {
+			stage('UT - Cloning our Git') { 
+			    steps { 
+				git 'https://github.com/chloongloong/hello_hapi.git' 
+			    }
+			} 
+
 			stage('UT - Update Manifest with new version number for the newly built image') {
 	
 				steps {
