@@ -95,6 +95,9 @@ pipeline {
 						    cat hello-hapi/deployment-hello-hapi.yaml
 						    sed -i 's/hello-hapi:.*/hello-hapi:'"${IMAGE_TAG}"'/g' hello-hapi/deployment-hello-hapi.yaml
 						    grep hello-hapi:.* hello-hapi/deployment-hello-hapi.yaml
+						    git add deployment-hello-hapi.yaml
+						    git commit -m "Updated deployment Manifest to image ver ${IMAGE_TAG}"
+						    git push origin main
 						   """
 					}	
 				}			
