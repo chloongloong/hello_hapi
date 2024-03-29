@@ -87,10 +87,15 @@ pipeline {
 	
 				steps {
 					script {
-						sh "echo $IMAGE_TAG"
-						sh "echo $IMAGE_VER"
-						sh "pwd"
-						sh "ls -lrt"
+						sh """
+						    echo $IMAGE_TAG
+						    echo $IMAGE_VER
+						    pwd
+					 	    ls -lrt
+						    cat hello-hapi/deployment-hello-hapi.yaml
+						    sed -i 's/hello-hapi:.*/hello-hapi:'"${IMAGE_TAG}"'/g' hello-hapi/deployment-hello-hapi.yaml
+						    grep hello-hapi:.* hello-hapi/deployment-hello-hapi.yaml
+						   """
 					}	
 				}			
 			}
