@@ -52,7 +52,7 @@ pipeline {
 			stage('CU - Building our image') { 
 			    steps { 
 				script { 
-				    dockerImage = docker.build registry + ":$BUILD_NUMBER" 
+				    dockerImage = docker.build registry + ":$IMAGE_VER-$BUILD_NUMBER" 
 				}
 			    } 
 			}
@@ -70,7 +70,7 @@ pipeline {
 
 			stage('CU - Cleaning up') { 
 			    steps { 
-				sh "docker rmi $registry:$BUILD_NUMBER" 
+				sh "docker rmi $registry:$IMAGE_VER-$BUILD_NUMBER" 
 			    }
 			} 
 		    }
@@ -78,7 +78,7 @@ pipeline {
 
 		stage('Update the version in manifest & Trigger CD - UT stages') {
 		    environment {
-			IMAGE_TAG = "$BUILD_NUMBER"
+			IMAGE_TAG = "$IMAGE_VER-$BUILD_NUMBER"
 		    }
 		    agent any
 		    
