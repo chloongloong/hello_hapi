@@ -92,8 +92,8 @@ pipeline {
 
 		    steps {
 			script {
-				sh echo "$IMAGE_TAG"
-				//build job: 'Hello Hapi - Trigger CD', wait: false, parameters: [string(name: 'IMAGE_TAG', value: "${IMAGE_TAG}")]
+				sh "echo $IMAGE_TAG"
+				build job: 'Hello Hapi - Trigger CD', wait: false, parameters: [string(name: 'IMAGE_TAG', value: "${IMAGE_TAG}")]
 		        }	
 		    }
 
