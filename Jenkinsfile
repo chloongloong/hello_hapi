@@ -89,6 +89,7 @@ pipeline {
 			IMAGE_TAG = "$IMAGE_VER-$BUILD_NUMBER"
 		    }
 */
+		    agent any
 
 		    steps {
 			script {
