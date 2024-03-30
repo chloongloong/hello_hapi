@@ -4,6 +4,7 @@ pipeline {
 
 	environment {
 		IMAGE_VER = 'v0.1'
+		IMAGE_TAG = "$IMAGE_VER-$BUILD_NUMBER"
 	}
 
 	agent none
@@ -52,7 +53,8 @@ pipeline {
 			stage('CU - Building our image') { 
 			    steps { 
 				script { 
-				    dockerImage = docker.build registry + ":$IMAGE_VER-$BUILD_NUMBER" 
+				    //dockerImage = docker.build registry + ":$IMAGE_VER-$BUILD_NUMBER" 
+				    dockerImage = docker.build registry + ":$IMAGE_TAG" 
 				}
 			    } 
 			}
@@ -70,7 +72,7 @@ pipeline {
 
 			stage('CU - Cleaning up') { 
 			    steps { 
-				sh "docker rmi $registry:$IMAGE_VER-$BUILD_NUMBER" 
+				sh "docker rmi $registry:$IMAGE_TAG" 
 			    }
 			} 
 		    }
@@ -82,10 +84,11 @@ pipeline {
         		string(defaultValue: '0', description: 'This is a parameter', name: 'IMAGE_TAG')
     		    }	
 		    param.IMAGE_TAG = "$IMAGE_VER-$BUILD_NUMBER"
-*/
+
 		    environment {
 			IMAGE_TAG = "$IMAGE_VER-$BUILD_NUMBER"
 		    }
+*/
 
 		    steps {
 			script {
