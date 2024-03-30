@@ -77,15 +77,20 @@ pipeline {
 		}
 		
 		stage('Trigger CD by updating deployment manifest image version') {
+/*
 		    parameters {
         		string(defaultValue: '0', description: 'This is a parameter', name: 'IMAGE_TAG')
     		    }	
-
 		    param.IMAGE_TAG = "$IMAGE_VER-$BUILD_NUMBER"
+*/
+		    environment {
+			IMAGE_TAG = "$IMAGE_VER-$BUILD_NUMBER"
+		    }
 
 		    steps {
 			script {
-				build job: 'Hello Hapi - Trigger CD', wait: false, parameters: [string(name: 'IMAGE_TAG', value: params.IMAGE_TAG)]
+				sh echo "$IMAGE_TAG"
+				build job: 'Hello Hapi - Trigger CD', wait: false, parameters: [string(name: 'IMAGE_TAG', value: "${IMAGE_TAG}")]
 		        }	
 		    }
 
